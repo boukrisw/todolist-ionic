@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="loginForm"
+        (ngSubmit)="this.doLoginEmailPassword()"
+        class="form__login">
+    <ion-input placeholder="Email"
+               formControlName="email"
+               class="input__login" ></ion-input>
+    <ion-input placeholder="Password"
+               formControlName="password"
+               type="password"
+               class="input__login" ></ion-input>
+
+    <ion-label (click)="this.redirectToPasswordRecovery()" class="message__login" >Forgot password?</ion-label>
+    <ion-button class="button__login" type="submit" [disabled]="!loginForm.valid">Log In</ion-button>
+    <ion-label (click)="this.redirectToPasswordRecovery()" class="message__create">Don't have an account? Create one!</ion-label>
+    <ion-button (click)="this.redirectToRegister()" class="button__login">Sign Up page</ion-button>
+  </form>
+</ion-content>

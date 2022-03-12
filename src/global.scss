@@ -24,3 +24,44 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.form__login{
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: yellow;
+  width: 100%;
+}
+
+.input__login{
+  background: white;
+  color: black;
+  max-height: 50px!important;
+  border-radius: 5px;
+  width: 80%;
+  border: 1px solid black;
+  margin-top: 10px;
+  text-indent: 10px;
+}
+
+.message__login{
+  width: 80%;
+  padding: 5px;
+}
+
+.button__login{
+  margin: 10px 0 0 0;
+  max-height: 50px!important;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.message__create{
+  margin-top: 35px;
+  width: 80%;
+}
+
+.button__login > ion-img {
+  height: 90%;
+}

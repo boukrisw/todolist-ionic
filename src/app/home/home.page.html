@@ -1,5 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button (click)="this.logOut()" text="LogOut"></ion-back-button>
+    </ion-buttons>
     <ion-title>
       Blank
     </ion-title>
@@ -13,8 +17,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div>
+    {{this.userService.user.email}}
+  </div>
+  <div>
+    {{this.userService.user.name}}
+  </div>
+  <div>
+    {{this.userService.user.uid}}
   </div>
 </ion-content>
