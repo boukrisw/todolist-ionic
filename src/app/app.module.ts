@@ -10,12 +10,14 @@ import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

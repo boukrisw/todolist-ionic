@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',//login
     pathMatch: 'full'
   },
   {
@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'password-recovery',
     loadChildren: () => import('./pages/password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
   },
+  {
+    path: 'list-details',
+    loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule)
+  },
+  {
+    path: 'todo-details',
+    loadChildren: () => import('./pages/todo-details/todo-details.module').then( m => m.TodoDetailsPageModule)
+  },
 ];
 
 @NgModule({
@@ -31,4 +39,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule {}

@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="this.exit()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Create todo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="todoForm" (ngSubmit)="this.addTodo()">
+    <ion-input placeholder="Todo name"
+               formControlName="nameTodo">
+    </ion-input>
+
+    <ion-input placeholder="Todo description"
+               formControlName="descriptionTodo">
+    </ion-input>
+
+    <div style="display: flex; flex-direction: row; margin: 0 10px; align-items: center">
+      <ion-checkbox color="primary" slot="start" formControlName="isDoneTodo"></ion-checkbox>
+      <ion-label style="margin-left: 5px">
+        <h2>is DONE</h2>
+      </ion-label>
+    </div>
+
+    <section class="full-width">
+      <ion-button expand="full" color="secondary" type="submit" [disabled]="!todoForm.valid">Add Todo</ion-button>
+    </section>
+  </form>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="this.exit()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="this.openModal()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{this.listDetails.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <!-- Sliding item with text options on both sides -->
+    <ion-item-sliding *ngFor="let todo of listDetails.todos; index as i;"
+                      style="display: flex; flex-direction: row; margin: 0 10px; align-items: center">
+      <ion-checkbox color="primary" slot="start" [(ngModel)]="todo.isDone"></ion-checkbox>
+      <ion-item style="flex: 1;">
+        <ion-label (click)="selectTodo(i)">
+          <h2 *ngIf="todo.isDone" style="color: red">{{todo.name}}</h2>
+          <h2 *ngIf="!todo.isDone">{{todo.name}}</h2>
+          <p >{{todo.description}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="delete(i)" color="danger">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

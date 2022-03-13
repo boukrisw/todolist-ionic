@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="this.exit()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Create list
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="listForm" (ngSubmit)="this.addList()">
+    <ion-input placeholder="List name"
+               formControlName="listName">
+    </ion-input>
+
+    <section class="full-width">
+      <ion-button type="submit" expand="full" color="secondary" [disabled]="!listForm.valid">Add list</ion-button>
+    </section>
+  </form>
+
+</ion-content>
+
