@@ -25,7 +25,7 @@
   </div>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let l of this.list; index as i;">
+    <ion-item-sliding *ngFor="let l of this.listService.lists$ | async; index as i;">
       <ion-item (click)="selectList(i)">
         <ion-label>{{l.name}}</ion-label>
       </ion-item>

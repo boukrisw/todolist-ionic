@@ -1,22 +1,46 @@
 import { Injectable } from '@angular/core';
 import {List} from '../../models/list';
+import {UserService} from '../user/user.service';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {EMPTY, from, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
-  lists: List[] = [
-    { name:'list 1',
-      todos:[
-        {name:'todo 1',description: 'description 1', isDone: false, id:32},
-        {name:'todo 1 23',description: 'description 32', isDone: false, id:332}
-      ]
-    },
-    { name:'list 2',
-      todos:[
-        {name:'todo 2',description: 'description 2', isDone: false, id:12}
-      ]
-    }
-  ];
-  constructor() { }
+  lists: List[] = [];// To delete
+  public lists$: Observable<List[]> = EMPTY;
+
+  constructor(private userService: UserService,
+              private afs: AngularFirestore) {}
+
+  public addList(listName: string){
+    const newList: List = {name: listName, owner: this.userService.user.uid, todos:[]};
+
+    this.afs.collection<List>('lists').add(newList)
+      .then(() => {
+        console.log('List added!');
+        this.getListsUser();
+      })
+      .catch(() => {
+        console.error('Error adding list!');
+      });
+  }
+
+  public async getListsUser(): Promise<List[]>{
+    const refDocList = this.afs.collection<List>('lists').ref;
+    const query = refDocList.where('owner', '==', this.userService.user.uid);
+
+    const res = query.get().then((querySnapshot)=>{
+      return querySnapshot.docs.map((d)=>{
+        return d.data();
+      });
+    }).then((data)=>{
+      this.lists$ = from([data]);
+      return data;
+    });
+    return res;
+  }
+
+
 }

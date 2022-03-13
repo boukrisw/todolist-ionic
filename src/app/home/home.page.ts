@@ -7,6 +7,7 @@ import {ModalController} from '@ionic/angular';
 import {CreateListComponent} from '../modals/create-list/create-list.component';
 import {List} from '../models/list';
 import {ListService} from '../services/list/list.service';
+import {EMPTY} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,6 @@ import {ListService} from '../services/list/list.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  list: List[] = [];
-
   constructor(private router: Router,
               private userService: UserService,
               public listService: ListService,
@@ -23,8 +22,8 @@ export class HomePage implements OnInit{
               private modalController: ModalController) {}
 
 
-  ngOnInit(): void {
-    this.list = this.listService.lists;
+  async ngOnInit(): Promise<void> {
+    await this.listService.getListsUser();
   }
 
   public selectList(todoId: number): void {
@@ -41,12 +40,13 @@ export class HomePage implements OnInit{
       component: CreateListComponent
     });
     await modal.present();
-    //this.list = this.listService.getAll(); // PAS BESOIN Mais pour etre sur!
-    this.list = this.listService.lists;
   }
 
   logOut(){
-    firebase.auth().signOut().then(() => this.router.navigate(['/login']) );
+    firebase.auth().signOut().then(() => {
+      this.listService.lists$ = EMPTY;
+      this.userService.user = undefined;
+      this.router.navigate(['/login']).then(() =>{});
+    });
   }
-
 }

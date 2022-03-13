@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/compat/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   },
   {
     path: '',
-    redirectTo: 'home',//login
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -25,11 +30,15 @@ const routes: Routes = [
   },
   {
     path: 'list-details',
-    loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule)
+    loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   },
   {
     path: 'todo-details',
-    loadChildren: () => import('./pages/todo-details/todo-details.module').then( m => m.TodoDetailsPageModule)
+    loadChildren: () => import('./pages/todo-details/todo-details.module').then( m => m.TodoDetailsPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   },
 ];
 

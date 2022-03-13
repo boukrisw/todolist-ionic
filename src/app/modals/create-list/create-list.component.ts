@@ -25,9 +25,7 @@ export class CreateListComponent implements OnInit {
   public addList(): void {
     if(this.listForm.valid){
       const listName = this.listForm.get('listName').value;
-      //this.listService.addList({name: this.listForm.get('listName').value, todos: []})
-      //this.fs.addList(1,this.listForm.get('listName').value);
-      this.listService.lists.push({name: listName, todos: []});
+      this.listService.addList(listName);
       this.modalController.dismiss().then(() => {});
     }
   }
