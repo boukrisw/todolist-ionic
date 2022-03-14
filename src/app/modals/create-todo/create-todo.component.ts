@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ListService} from '../../services/list/list.service';
 
 @Component({
   selector: 'app-create-todo',
@@ -10,12 +11,14 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class CreateTodoComponent implements OnInit {
 
   todoForm: FormGroup;
-  public idList;
+  public listId;
 
   constructor(private modalController: ModalController,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              public listService: ListService) { }
 
   ngOnInit() {
+
     this.todoForm = this.fb.group({
       nameTodo: ['', Validators.required],
       descriptionTodo: ['', Validators.required],
@@ -25,8 +28,13 @@ export class CreateTodoComponent implements OnInit {
 
   public addTodo(): void {
     if(this.todoForm.valid){
-      //this.listService.addTodo(this.idList, {name: this.todoForm.get('nameTodo').value, description: this.todoForm.get('descriptionTodo').value, isDone: this.todoForm.get('isDoneTodo').value})
-      this.modalController.dismiss().then(r => {});
+      this.listService.addTodo(this.listId, {name: this.todoForm.get('nameTodo').value, description: this.todoForm.get('descriptionTodo').value, isDone: this.todoForm.get('isDoneTodo').value})
+        .then(()=> {
+          this.listService.getListsUser();
+          this.modalController.dismiss().then(r => {
+          });
+        }
+     );
     }
   }
 

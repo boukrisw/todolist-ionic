@@ -22,17 +22,22 @@ export class ListDetailsPage implements OnInit {
 
   ngOnInit() {
     this.listId = Number(this.route.snapshot.paramMap.get('id'));
-    this.listDetails = this.listService.lists[this.listId];
+    this.listService.lists$.subscribe((lists)=>{
+      this.listDetails = lists[this.listId];
+    });
   }
 
   async openModal(){
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
-        idList: this.listId,
+        listId: this.listId,
       }
     });
     await modal.present();
+    this.listService.lists$.subscribe((lists)=>{
+      this.listDetails = lists[this.listId];
+    });
     //this.listDetails = this.listService.getOne(this.listId);
   }
 

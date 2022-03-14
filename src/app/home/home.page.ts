@@ -33,6 +33,8 @@ export class HomePage implements OnInit{
   public delete(l: List): void{
     //this.listService.deleteList(l);
     //this.list = this.listService.getAll(); // PAS BESOIN Mais pour etre sur!
+    console.log(' HomePage Delete');
+    this.listService.deleteList(l);
   }
 
   async openModal(){

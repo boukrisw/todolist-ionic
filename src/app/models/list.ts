@@ -5,9 +5,9 @@ export class List {
   public todos: Todo[];
   public owner: string;
 
-    constructor(name: string, owner: string) {
-      this.name = name;
-      this.todos = [];
-      this.owner = owner;
-    }
+  constructor(name: string, owner: string) {
+    this.name = name;
+    this.todos = [];
+    this.owner = owner;
+  }
 }
