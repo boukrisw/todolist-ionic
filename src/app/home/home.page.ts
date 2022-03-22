@@ -23,16 +23,7 @@ export class HomePage implements OnInit{
 
 
   async ngOnInit(): Promise<void> {
-    await this.listService.getListsUser().then(()=>{
-      console.log(this.listService.listDocuments$);
-
-      this.listService.listDocuments$.subscribe((d)=>{
-        console.log('d.data()  :',d.docs);
-        /*d.map((e,i)=>{
-          console.log('i :' ,i,' => ', e.data());
-        });*/
-      });
-    });
+    await this.listService.getListsUser().then(()=>{});
   }
 
   public selectList(todoId: string): void {

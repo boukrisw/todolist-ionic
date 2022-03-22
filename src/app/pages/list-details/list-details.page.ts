@@ -37,8 +37,6 @@ export class ListDetailsPage implements OnInit {
       }
     });
     await modal.present();
-    // Todo : Update!
-    //this.listDetails = this.listService.getOne(this.listId);
   }
 
   delete(indexTodo: number ): void {

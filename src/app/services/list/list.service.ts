@@ -33,18 +33,13 @@ export class ListService {
       });
   }
 
-  public async getListsUser(): Promise<List[]>{
+  public async getListsUser(): Promise<void>{
     const refDocList = this.afs.collection<List>('lists').ref;
     const query = refDocList.where('owner', '==', this.userService.user.uid);
-    const res = query.get().then((querySnapshot)=>{
+    query.get().then((querySnapshot)=>{
       this.listDocuments$ = from([querySnapshot]);
-      return querySnapshot.docs.map((d)=>{
-        return d.data();
-      });
-    }).then((data)=>{
-      return data;
+      console.log('Change!');
     });
-    return res;
   }
 
   public getListDoc(idList: string): AngularFirestoreDocument<List>{
