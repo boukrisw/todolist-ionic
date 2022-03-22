@@ -23,18 +23,27 @@ export class HomePage implements OnInit{
 
 
   async ngOnInit(): Promise<void> {
-    await this.listService.getListsUser();
+    await this.listService.getListsUser().then(()=>{
+      console.log(this.listService.listDocuments$);
+
+      this.listService.listDocuments$.subscribe((d)=>{
+        console.log('d.data()  :',d.docs);
+        /*d.map((e,i)=>{
+          console.log('i :' ,i,' => ', e.data());
+        });*/
+      });
+    });
   }
 
-  public selectList(todoId: number): void {
+  public selectList(todoId: string): void {
     this.router.navigate(['/list-details', { id: todoId }]);
   }
 
-  public delete(l: List): void{
+  public delete(listId: string): void{
     //this.listService.deleteList(l);
     //this.list = this.listService.getAll(); // PAS BESOIN Mais pour etre sur!
     console.log(' HomePage Delete');
-    this.listService.deleteList(l);
+    this.listService.deleteList(listId);
   }
 
   async openModal(){
@@ -46,7 +55,6 @@ export class HomePage implements OnInit{
 
   logOut(){
     firebase.auth().signOut().then(() => {
-      this.listService.lists$ = EMPTY;
       this.userService.user = undefined;
       this.router.navigate(['/login']).then(() =>{});
     });

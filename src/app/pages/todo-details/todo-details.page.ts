@@ -27,7 +27,7 @@ export class TodoDetailsPage implements OnInit {
     this.listId = Number(this.route.snapshot.paramMap.get('listId'));
     this.todoId = Number(this.route.snapshot.paramMap.get('idTodo'));
 
-    this.todo = this.listService.lists[this.listId].todos[this.todoId];
+    this.todo = this.listService.selectedList[this.listId].todos[this.todoId];
     this.todoForm = this.fb.group({
       nameTodo: [this.todo.name, Validators.required],
       descriptionTodo: [this.todo.description, Validators.required],

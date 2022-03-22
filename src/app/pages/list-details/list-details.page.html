@@ -10,7 +10,7 @@
         <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{this.listDetails.name}}</ion-title>
+    <ion-title>{{this.listService.selectedList?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
 
   <ion-list>
     <!-- Sliding item with text options on both sides -->
-    <ion-item-sliding *ngFor="let todo of listDetails.todos; index as i;"
+    <ion-item-sliding *ngFor="let todo of this.listService.selectedList?.todos; index as i;"
                       style="display: flex; flex-direction: row; margin: 0 10px; align-items: center">
       <ion-checkbox color="primary" slot="start" [(ngModel)]="todo.isDone"></ion-checkbox>
       <ion-item style="flex: 1;">

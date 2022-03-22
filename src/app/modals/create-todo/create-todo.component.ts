@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ListService} from '../../services/list/list.service';
+import {Todo} from "../../models/todo";
 
 @Component({
   selector: 'app-create-todo',
@@ -28,13 +29,13 @@ export class CreateTodoComponent implements OnInit {
 
   public addTodo(): void {
     if(this.todoForm.valid){
-      this.listService.addTodo(this.listId, {name: this.todoForm.get('nameTodo').value, description: this.todoForm.get('descriptionTodo').value, isDone: this.todoForm.get('isDoneTodo').value})
-        .then(()=> {
-          this.listService.getListsUser();
-          this.modalController.dismiss().then(r => {
-          });
-        }
-     );
+      // Version 2
+      // Todo: test with firebase!
+      const newTodo: Todo = {name: this.todoForm.get('nameTodo').value, description: this.todoForm.get('descriptionTodo').value, isDone: this.todoForm.get('isDoneTodo').value};
+      console.log('this.listService.selectedList =>',this.listService.selectedList);
+      this.listService.selectedList.todos.push(newTodo);
+      this.listService.updateListDoc(this.listId,this.listService.selectedList);
+      this.modalController.dismiss().then(r => {});
     }
   }
 

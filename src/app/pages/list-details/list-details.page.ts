@@ -12,8 +12,8 @@ import {ModalController} from '@ionic/angular';
 })
 export class ListDetailsPage implements OnInit {
 
-  public listDetails: List;
-  public listId: number;
+  //public listDetails: List = undefined;
+  public listId: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -21,9 +21,11 @@ export class ListDetailsPage implements OnInit {
               private modalController: ModalController) { }
 
   ngOnInit() {
-    this.listId = Number(this.route.snapshot.paramMap.get('id'));
-    this.listService.lists$.subscribe((lists)=>{
-      this.listDetails = lists[this.listId];
+    this.listId = this.route.snapshot.paramMap.get('id');
+    this.listService.getListDoc(this.listId).get().subscribe((d)=>{
+      console.log('d.data() => ',d.data());
+      //this.listDetails = d.data();
+      this.listService.selectedList = d.data();
     });
   }
 
@@ -35,14 +37,14 @@ export class ListDetailsPage implements OnInit {
       }
     });
     await modal.present();
-    this.listService.lists$.subscribe((lists)=>{
-      this.listDetails = lists[this.listId];
-    });
+    // Todo : Update!
     //this.listDetails = this.listService.getOne(this.listId);
   }
 
   delete(indexTodo: number ): void {
     // Todo: Delete TODO!
+    this.listService.selectedList.todos.splice(indexTodo,1);
+    this.listService.updateListDoc(this.listId,this.listService.selectedList);
     //this.listService.deleteTodo(this.listDetails,indexTodo);
     //this.listDetails = this.listService.getOne(this.listId);
   }
@@ -52,6 +54,7 @@ export class ListDetailsPage implements OnInit {
   }
 
   public exit(): void {
+    this.listService.selectedList = undefined;
     this.router.navigate(['/home']).then(() => {});
   }
 }
